@@ -1,0 +1,26 @@
+int soilPin = 34;     // Soil sensor AO
+int relayPin = 26;    // Relay IN
+int soilValue;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(relayPin, OUTPUT);
+}
+
+void loop() {
+  soilValue = analogRead(soilPin);
+
+  Serial.print("Soil Value: ");
+  Serial.println(soilValue);
+
+  if (soilValue > 2500) {     // Dry soil
+    Serial.println("Soil is DRY → Pump ON");
+    digitalWrite(relayPin, LOW);   // Relay ON (active LOW)
+  } 
+  else {
+    Serial.println("Soil is WET → Pump OFF");
+    digitalWrite(relayPin, HIGH);  // Relay OFF
+  }
+
+  delay(2000);
+}
